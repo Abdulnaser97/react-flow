@@ -25,7 +25,7 @@ const Background: FC<BackgroundProps> = ({
   style,
   className,
 }) => {
-  const [x, y, scale] = useStoreState((s) => s.transform);
+  const [x, y, scale] = useStoreState((s) => s.present.transform);
   // when there are multiple flows on a page we need to make sure that every background gets its own pattern.
   const patternId = useMemo(() => `pattern-${Math.floor(Math.random() * 100000)}`, []);
 

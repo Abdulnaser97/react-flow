@@ -26,7 +26,7 @@ function getMousePosition(event: React.MouseEvent): XYPosition | void {
 }
 
 const SelectionRect = () => {
-  const userSelectionRect = useStoreState((state) => state.userSelectionRect);
+  const userSelectionRect = useStoreState((state) => state.present.userSelectionRect);
 
   if (!userSelectionRect.draw) {
     return null;
@@ -45,8 +45,8 @@ const SelectionRect = () => {
 };
 
 export default memo(({ selectionKeyPressed }: UserSelectionProps) => {
-  const selectionActive = useStoreState((state) => state.selectionActive);
-  const elementsSelectable = useStoreState((state) => state.elementsSelectable);
+  const selectionActive = useStoreState((state) => state.present.selectionActive);
+  const elementsSelectable = useStoreState((state) => state.present.elementsSelectable);
 
   const setUserSelection = useStoreActions((actions) => actions.setUserSelection);
   const updateUserSelection = useStoreActions((actions) => actions.updateUserSelection);

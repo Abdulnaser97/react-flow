@@ -11,8 +11,9 @@ import { ReactFlowDispatch } from './index';
 import * as actions from './actions';
 import { ReactFlowAction } from './actions';
 import { ReactFlowState } from '../types';
+import { StateWithHistory } from 'redux-undo';
 
-export const useTypedSelector: TypedUseSelectorHook<ReactFlowState> = useSelector;
+export const useTypedSelector: TypedUseSelectorHook<StateWithHistory<ReactFlowState>> = useSelector;
 
 export type ActionCreatorSelector<Action> = (acts: typeof actions) => ActionCreator<Action>;
 export type ActionMapObjectSelector<Action> = (acts: typeof actions) => ActionCreatorsMapObject<Action>;
@@ -41,8 +42,8 @@ export function useStoreActions<Action extends ReactFlowAction>(actionSelector: 
 }
 
 export const useStoreState = useTypedSelector;
-export const useStore = (): Store<ReactFlowState, ReactFlowAction> => {
-  const store = useStoreRedux<ReactFlowState, ReactFlowAction>();
+export const useStore = (): Store<StateWithHistory<ReactFlowState>, ReactFlowAction> => {
+  const store = useStoreRedux<StateWithHistory<ReactFlowState>, ReactFlowAction>();
   return store;
 };
 export const useDispatch: ReactFlowDispatch = reduxUseDispatch;

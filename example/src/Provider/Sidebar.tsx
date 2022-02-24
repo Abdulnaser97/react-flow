@@ -2,8 +2,8 @@ import React from 'react';
 import { useStoreState, useStoreActions } from 'react-flow-renderer';
 
 const Sidebar = () => {
-  const nodes = useStoreState((store) => store.nodes);
-  const transform = useStoreState((store) => store.transform);
+  const nodes = useStoreState((store) => store.present.nodes);
+  const transform = useStoreState((store) => store.present.transform);
   const setSelectedElements = useStoreActions((actions) => actions.setSelectedElements);
 
   const selectAll = () => {

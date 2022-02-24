@@ -29,11 +29,11 @@ const Handle = forwardRef<HTMLDivElement, HandleComponentProps>(
     const nodeId = useContext(NodeIdContext) as ElementId;
     const setPosition = useStoreActions((actions) => actions.setConnectionPosition);
     const setConnectionNodeId = useStoreActions((actions) => actions.setConnectionNodeId);
-    const onConnectAction = useStoreState((state) => state.onConnect);
-    const onConnectStart = useStoreState((state) => state.onConnectStart);
-    const onConnectStop = useStoreState((state) => state.onConnectStop);
-    const onConnectEnd = useStoreState((state) => state.onConnectEnd);
-    const connectionMode = useStoreState((state) => state.connectionMode);
+    const onConnectAction = useStoreState((state) => state.present.onConnect);
+    const onConnectStart = useStoreState((state) => state.present.onConnectStart);
+    const onConnectStop = useStoreState((state) => state.present.onConnectStop);
+    const onConnectEnd = useStoreState((state) => state.present.onConnectEnd);
+    const connectionMode = useStoreState((state) => state.present.connectionMode);
     const handleId = id || null;
     const isTarget = type === 'target';
 

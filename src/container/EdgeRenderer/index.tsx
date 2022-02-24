@@ -184,18 +184,18 @@ const Edge = ({
 };
 
 const EdgeRenderer = (props: EdgeRendererProps) => {
-  const transform = useStoreState((state) => state.transform);
-  const nodes = useStoreState((state) => state.nodes);
-  const edges = useStoreState((state) => state.edges);
-  const connectionNodeId = useStoreState((state) => state.connectionNodeId);
-  const connectionHandleId = useStoreState((state) => state.connectionHandleId);
-  const connectionHandleType = useStoreState((state) => state.connectionHandleType);
-  const connectionPosition = useStoreState((state) => state.connectionPosition);
-  const selectedElements = useStoreState((state) => state.selectedElements);
-  const nodesConnectable = useStoreState((state) => state.nodesConnectable);
-  const elementsSelectable = useStoreState((state) => state.elementsSelectable);
-  const width = useStoreState((state) => state.width);
-  const height = useStoreState((state) => state.height);
+  const transform = useStoreState((state) => state.present.transform);
+  const nodes = useStoreState((state) => state.present.nodes);
+  const edges = useStoreState((state) => state.present.edges);
+  const connectionNodeId = useStoreState((state) => state.present.connectionNodeId);
+  const connectionHandleId = useStoreState((state) => state.present.connectionHandleId);
+  const connectionHandleType = useStoreState((state) => state.present.connectionHandleType);
+  const connectionPosition = useStoreState((state) => state.present.connectionPosition);
+  const selectedElements = useStoreState((state) => state.present.selectedElements);
+  const nodesConnectable = useStoreState((state) => state.present.nodesConnectable);
+  const elementsSelectable = useStoreState((state) => state.present.elementsSelectable);
+  const width = useStoreState((state) => state.present.width);
+  const height = useStoreState((state) => state.present.height);
 
   if (!width) {
     return null;

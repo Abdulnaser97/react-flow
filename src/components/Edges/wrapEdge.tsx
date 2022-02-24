@@ -51,7 +51,7 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
     const setConnectionNodeId = useStoreActions((actions) => actions.setConnectionNodeId);
     const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
     const setPosition = useStoreActions((actions) => actions.setConnectionPosition);
-    const connectionMode = useStoreState((state) => state.connectionMode);
+    const connectionMode = useStoreState((state) => state.present.connectionMode);
 
     const [updating, setUpdating] = useState<boolean>(false);
 
@@ -160,7 +160,18 @@ export default (EdgeComponent: ComponentType<EdgeProps>) => {
           _onEdgeUpdate
         );
       },
-      [id, source, target, type, sourceHandleId, targetHandleId, setConnectionNodeId, setPosition, edgeElement, onConnectEdge]
+      [
+        id,
+        source,
+        target,
+        type,
+        sourceHandleId,
+        targetHandleId,
+        setConnectionNodeId,
+        setPosition,
+        edgeElement,
+        onConnectEdge,
+      ]
     );
 
     const onEdgeUpdaterSourceMouseDown = useCallback(

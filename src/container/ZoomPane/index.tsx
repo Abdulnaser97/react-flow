@@ -66,9 +66,9 @@ const ZoomPane = ({
   const prevTransform = useRef<FlowTransform>({ x: 0, y: 0, zoom: 0 });
 
   const store = useStore();
-  const d3Zoom = useStoreState((s) => s.d3Zoom);
-  const d3Selection = useStoreState((s) => s.d3Selection);
-  const d3ZoomHandler = useStoreState((s) => s.d3ZoomHandler);
+  const d3Zoom = useStoreState((s) => s.present.d3Zoom);
+  const d3Selection = useStoreState((s) => s.present.d3Selection);
+  const d3ZoomHandler = useStoreState((s) => s.present.d3ZoomHandler);
 
   const initD3Zoom = useStoreActions((actions) => actions.initD3Zoom);
   const updateTransform = useStoreActions((actions) => actions.updateTransform);
@@ -80,13 +80,16 @@ const ZoomPane = ({
   useEffect(() => {
     if (zoomPane.current) {
       const state = store.getState();
-      const currentTranslateExtent = typeof translateExtent !== 'undefined' ? translateExtent : state.translateExtent;
-      const d3ZoomInstance = zoom().scaleExtent([state.minZoom, state.maxZoom]).translateExtent(currentTranslateExtent);
+      const currentTranslateExtent =
+        typeof translateExtent !== 'undefined' ? translateExtent : state.present.translateExtent;
+      const d3ZoomInstance = zoom()
+        .scaleExtent([state.present.minZoom, state.present.maxZoom])
+        .translateExtent(currentTranslateExtent);
       const selection = select(zoomPane.current as Element).call(d3ZoomInstance);
 
       const clampedX = clamp(defaultPosition[0], currentTranslateExtent[0][0], currentTranslateExtent[1][0]);
       const clampedY = clamp(defaultPosition[1], currentTranslateExtent[0][1], currentTranslateExtent[1][1]);
-      const clampedZoom = clamp(defaultZoom, state.minZoom, state.maxZoom);
+      const clampedZoom = clamp(defaultZoom, state.present.minZoom, state.present.maxZoom);
       const updatedTransform = zoomIdentity.translate(clampedX, clampedY).scale(clampedZoom);
 
       d3ZoomInstance.transform(selection, updatedTransform);

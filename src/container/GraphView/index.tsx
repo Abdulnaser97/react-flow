@@ -10,6 +10,8 @@ import useZoomPanHelper from '../../hooks/useZoomPanHelper';
 import { ReactFlowProps } from '../ReactFlow';
 
 import { NodeTypesType, EdgeTypesType, ConnectionLineType, KeyCode } from '../../types';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
+import { useDispatch } from 'react-redux';
 
 export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange' | 'elements'> {
   nodeTypes: NodeTypesType;
@@ -95,7 +97,10 @@ const GraphView = ({
   edgeUpdaterRadius,
   onEdgeUpdateStart,
   onEdgeUpdateEnd,
+  onUndo,
+  onRedo,
 }: GraphViewProps) => {
+  const dispatch = useDispatch();
   const isInitialized = useRef<boolean>(false);
   const setOnConnect = useStoreActions((actions) => actions.setOnConnect);
   const setOnConnectStart = useStoreActions((actions) => actions.setOnConnectStart);
@@ -111,6 +116,9 @@ const GraphView = ({
   const setTranslateExtent = useStoreActions((actions) => actions.setTranslateExtent);
   const setNodeExtent = useStoreActions((actions) => actions.setNodeExtent);
   const setConnectionMode = useStoreActions((actions) => actions.setConnectionMode);
+  const setUndo = async () => await dispatch(UndoActionCreators.undo());
+  const setRedo = async () => await dispatch(UndoActionCreators.redo());
+
   const currentStore = useStore();
   const { zoomIn, zoomOut, zoomTo, transform, fitView, initialized } = useZoomPanHelper();
 
@@ -216,6 +224,14 @@ const GraphView = ({
       setConnectionMode(connectionMode);
     }
   }, [connectionMode]);
+
+  useEffect(() => {
+    setUndo();
+  }, [onUndo]);
+
+  useEffect(() => {
+    setRedo();
+  }, [onRedo]);
 
   return (
     <FlowRenderer

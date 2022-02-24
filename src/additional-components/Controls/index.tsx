@@ -48,7 +48,9 @@ const Controls: FC<ControlProps> = ({
   const setInteractive = useStoreActions((actions) => actions.setInteractive);
   const { zoomIn, zoomOut, fitView } = useZoomPanHelper();
 
-  const isInteractive = useStoreState((s) => s.nodesDraggable && s.nodesConnectable && s.elementsSelectable);
+  const isInteractive = useStoreState(
+    (s) => s.present.nodesDraggable && s.present.nodesConnectable && s.present.elementsSelectable
+  );
   const mapClasses = cc(['react-flow__controls', className]);
 
   const onZoomInHandler = useCallback(() => {

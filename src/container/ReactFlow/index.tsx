@@ -128,6 +128,8 @@ export interface ReactFlowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   edgeUpdaterRadius?: number;
   nodeTypesId?: string;
   edgeTypesId?: string;
+  onUndo?: boolean;
+  onRedo?: boolean;
 }
 
 export type ReactFlowRefType = HTMLDivElement;
@@ -208,6 +210,8 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
       edgeUpdaterRadius = 10,
       nodeTypesId = '1',
       edgeTypesId = '1',
+      onUndo,
+      onRedo,
       ...rest
     },
     ref
@@ -287,6 +291,8 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
             edgeUpdaterRadius={edgeUpdaterRadius}
+            onUndo={onUndo}
+            onRedo={onRedo}
           />
           <ElementUpdater elements={elements} />
           {onSelectionChange && <SelectionListener onSelectionChange={onSelectionChange} />}

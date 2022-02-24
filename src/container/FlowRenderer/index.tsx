@@ -57,7 +57,7 @@ const FlowRenderer = ({
 }: FlowRendererProps) => {
   const unsetNodesSelection = useStoreActions((actions) => actions.unsetNodesSelection);
   const resetSelectedElements = useStoreActions((actions) => actions.resetSelectedElements);
-  const nodesSelectionActive = useStoreState((state) => state.nodesSelectionActive);
+  const nodesSelectionActive = useStoreState((state) => state.present.nodesSelectionActive);
 
   const selectionKeyPressed = useKeyPress(selectionKeyCode);
 

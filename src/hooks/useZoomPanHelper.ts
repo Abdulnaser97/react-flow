@@ -26,8 +26,8 @@ const getTransition = (selection: D3Selection<Element, unknown, null, undefined>
 
 const useZoomPanHelper = (): ZoomPanHelperFunctions => {
   const store = useStore();
-  const d3Zoom = useStoreState((s) => s.d3Zoom);
-  const d3Selection = useStoreState((s) => s.d3Selection);
+  const d3Zoom = useStoreState((s) => s.present.d3Zoom);
+  const d3Selection = useStoreState((s) => s.present.d3Selection);
 
   const zoomPanHelperFunctions = useMemo<ZoomPanHelperFunctions>(() => {
     if (d3Selection && d3Zoom) {
@@ -42,7 +42,7 @@ const useZoomPanHelper = (): ZoomPanHelperFunctions => {
           d3Zoom.transform(getTransition(d3Selection, duration), nextTransform);
         },
         fitView: (options: FitViewParams = { padding: DEFAULT_PADDING, includeHiddenNodes: false, duration: 0 }) => {
-          const { nodes, width, height, minZoom, maxZoom } = store.getState();
+          const { nodes, width, height, minZoom, maxZoom } = store.getState().present;
 
           if (!nodes.length) {
             return;
@@ -62,7 +62,7 @@ const useZoomPanHelper = (): ZoomPanHelperFunctions => {
           d3Zoom.transform(getTransition(d3Selection, options.duration), transform);
         },
         setCenter: (x: number, y: number, zoom?: number, duration?: number) => {
-          const { width, height, maxZoom } = store.getState();
+          const { width, height, maxZoom } = store.getState().present;
 
           const nextZoom = typeof zoom !== 'undefined' ? zoom : maxZoom;
           const centerX = width / 2 - x * nextZoom;
@@ -71,14 +71,14 @@ const useZoomPanHelper = (): ZoomPanHelperFunctions => {
           d3Zoom.transform(getTransition(d3Selection, duration), transform);
         },
         fitBounds: (bounds: Rect, padding = DEFAULT_PADDING, duration?: number) => {
-          const { width, height, minZoom, maxZoom } = store.getState();
+          const { width, height, minZoom, maxZoom } = store.getState().present;
           const [x, y, zoom] = getTransformForBounds(bounds, width, height, minZoom, maxZoom, padding);
           const transform = zoomIdentity.translate(x, y).scale(zoom);
 
           d3Zoom.transform(getTransition(d3Selection, duration), transform);
         },
         project: (position: XYPosition) => {
-          const { transform, snapToGrid, snapGrid } = store.getState();
+          const { transform, snapToGrid, snapGrid } = store.getState().present;
           return pointToRendererPoint(position, transform, snapToGrid, snapGrid);
         },
         initialized: true,

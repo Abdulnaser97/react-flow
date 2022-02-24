@@ -23,13 +23,13 @@ export default ({
   onSelectionDragStop,
   onSelectionContextMenu,
 }: NodesSelectionProps) => {
-  const [tX, tY, tScale] = useStoreState((state) => state.transform);
-  const selectedNodesBbox = useStoreState((state) => state.selectedNodesBbox);
-  const selectionActive = useStoreState((state) => state.selectionActive);
-  const selectedElements = useStoreState((state) => state.selectedElements);
-  const snapToGrid = useStoreState((state) => state.snapToGrid);
-  const snapGrid = useStoreState((state) => state.snapGrid);
-  const nodes = useStoreState((state) => state.nodes);
+  const [tX, tY, tScale] = useStoreState((state) => state.present.transform);
+  const selectedNodesBbox = useStoreState((state) => state.present.selectedNodesBbox);
+  const selectionActive = useStoreState((state) => state.present.selectionActive);
+  const selectedElements = useStoreState((state) => state.present.selectedElements);
+  const snapToGrid = useStoreState((state) => state.present.snapToGrid);
+  const snapGrid = useStoreState((state) => state.present.snapGrid);
+  const nodes = useStoreState((state) => state.present.nodes);
 
   const updateNodePosDiff = useStoreActions((actions) => actions.updateNodePosDiff);
 

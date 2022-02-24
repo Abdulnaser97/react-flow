@@ -22,7 +22,7 @@ export default ({ deleteKeyCode, multiSelectionKeyCode, onElementsRemove }: Hook
   const multiSelectionKeyPressed = useKeyPress(multiSelectionKeyCode);
 
   useEffect(() => {
-    const { edges, selectedElements } = store.getState();
+    const { edges, selectedElements } = store.getState().present;
 
     if (onElementsRemove && deleteKeyPressed && selectedElements) {
       const selectedNodes = selectedElements.filter(isNode);

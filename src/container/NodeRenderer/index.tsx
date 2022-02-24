@@ -21,14 +21,14 @@ interface NodeRendererProps {
 }
 
 const NodeRenderer = (props: NodeRendererProps) => {
-  const transform = useStoreState((state) => state.transform);
-  const selectedElements = useStoreState((state) => state.selectedElements);
-  const nodesDraggable = useStoreState((state) => state.nodesDraggable);
-  const nodesConnectable = useStoreState((state) => state.nodesConnectable);
-  const elementsSelectable = useStoreState((state) => state.elementsSelectable);
-  const width = useStoreState((state) => state.width);
-  const height = useStoreState((state) => state.height);
-  const nodes = useStoreState((state) => state.nodes);
+  const transform = useStoreState((state) => state.present.transform);
+  const selectedElements = useStoreState((state) => state.present.selectedElements);
+  const nodesDraggable = useStoreState((state) => state.present.nodesDraggable);
+  const nodesConnectable = useStoreState((state) => state.present.nodesConnectable);
+  const elementsSelectable = useStoreState((state) => state.present.elementsSelectable);
+  const width = useStoreState((state) => state.present.width);
+  const height = useStoreState((state) => state.present.height);
+  const nodes = useStoreState((state) => state.present.nodes);
   const updateNodeDimensions = useStoreActions((actions) => actions.updateNodeDimensions);
 
   const visibleNodes = props.onlyRenderVisibleElements

@@ -10,7 +10,7 @@ interface SelectionListenerProps {
 // This is a helper component for calling the onSelectionChange listener
 
 export default ({ onSelectionChange }: SelectionListenerProps) => {
-  const selectedElements = useStoreState((s) => s.selectedElements);
+  const selectedElements = useStoreState((s) => s.present.selectedElements);
 
   useEffect(() => {
     onSelectionChange(selectedElements);

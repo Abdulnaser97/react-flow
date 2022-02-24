@@ -16,6 +16,7 @@ import {
   ReactFlowState,
   NodeExtent,
 } from '../types';
+import { StateWithHistory } from 'redux-undo';
 
 export const isEdge = (element: Node | Connection | Edge): element is Edge =>
   'id' in element && 'source' in element && 'target' in element;
@@ -138,9 +139,9 @@ export const pointToRendererPoint = (
   return position;
 };
 
-export const onLoadProject = (currentStore: Store<ReactFlowState>) => {
+export const onLoadProject = (currentStore: Store<StateWithHistory<ReactFlowState>>) => {
   return (position: XYPosition): XYPosition => {
-    const { transform, snapToGrid, snapGrid } = currentStore.getState();
+    const { transform, snapToGrid, snapGrid } = currentStore.getState().present;
 
     return pointToRendererPoint(position, transform, snapToGrid, snapGrid);
   };
@@ -153,7 +154,7 @@ export const parseNode = (node: Node, nodeExtent: NodeExtent): Node => {
     type: node.type || 'default',
     __rf: {
       position: clampPosition(node.position, nodeExtent),
-      width:  node.style?.width || null,
+      width: node.style?.width || null,
       height: node.style?.height || null,
       handleBounds: {},
       isDragging: false,
@@ -272,17 +273,17 @@ const parseElements = (nodes: Node[], edges: Edge[]): Elements => {
   ];
 };
 
-export const onLoadGetElements = (currentStore: Store<ReactFlowState>) => {
+export const onLoadGetElements = (currentStore: Store<StateWithHistory<ReactFlowState>>) => {
   return (): Elements => {
-    const { nodes = [], edges = [] } = currentStore.getState();
+    const { nodes = [], edges = [] } = currentStore.getState().present;
 
     return parseElements(nodes, edges);
   };
 };
 
-export const onLoadToObject = (currentStore: Store<ReactFlowState>) => {
+export const onLoadToObject = (currentStore: Store<StateWithHistory<ReactFlowState>>) => {
   return (): FlowExportObject => {
-    const { nodes = [], edges = [], transform } = currentStore.getState();
+    const { nodes = [], edges = [], transform } = currentStore.getState().present;
 
     return {
       elements: parseElements(nodes, edges),

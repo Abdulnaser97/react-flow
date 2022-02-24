@@ -4,7 +4,7 @@ import { EdgeProps, getMarkerEnd, useStoreState, getBezierPath } from 'react-flo
 import { getEdgeParams } from './utils';
 
 const FloatingEdge: FC<EdgeProps> = ({ id, source, target, arrowHeadType, markerEndId, style }) => {
-  const nodes = useStoreState((state) => state.nodes);
+  const nodes = useStoreState((state) => state.present.nodes);
   const markerEnd = getMarkerEnd(arrowHeadType, markerEndId);
 
   const sourceNode = useMemo(() => nodes.find((n) => n.id === source), [source, nodes]);

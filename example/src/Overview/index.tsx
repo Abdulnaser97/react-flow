@@ -16,6 +16,7 @@ import ReactFlow, {
   ArrowHeadType,
   Connection,
   Edge,
+  useStoreState,
 } from 'react-flow-renderer';
 
 const onNodeDragStart = (_: MouseEvent, node: Node) => console.log('drag start', node);
@@ -162,6 +163,9 @@ const OverviewFlow = () => {
   const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
+  const [undoFlag, setUndoFlag] = useState(false);
+  const [redoFlag, setRedoFlag] = useState(false);
+
   return (
     <ReactFlow
       elements={elements}
@@ -191,12 +195,25 @@ const OverviewFlow = () => {
       onEdgeMouseMove={onEdgeMouseMove}
       onEdgeMouseLeave={onEdgeMouseLeave}
       onEdgeDoubleClick={onEdgeDoubleClick}
+      onUndo={undoFlag}
+      onRedo={redoFlag}
     >
       <MiniMap nodeStrokeColor={nodeStrokeColor} nodeColor={nodeColor} nodeBorderRadius={2} />
       <Controls />
       <Background color="#aaa" gap={20} />
+      <ReactFlowAccessor onUndo={() => setUndoFlag(!undoFlag)} onRedo={() => setRedoFlag(!redoFlag)} />
     </ReactFlow>
   );
 };
 
+const ReactFlowAccessor = (props: any) => {
+  const state = useStoreState((s) => s);
+  console.log(state);
+  return (
+    <p style={{ position: 'fixed', zIndex: 9999 }}>
+      <button onClick={props.onUndo}>Undo</button>
+      <button onClick={props.onRedo}>Redo</button>
+    </p>
+  );
+};
 export default OverviewFlow;

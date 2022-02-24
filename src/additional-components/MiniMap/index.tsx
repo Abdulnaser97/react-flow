@@ -32,18 +32,18 @@ const MiniMap = ({
   nodeStrokeWidth = 2,
   maskColor = 'rgb(240, 242, 243, 0.7)',
 }: MiniMapProps) => {
-  const containerWidth = useStoreState((s) => s.width);
-  const containerHeight = useStoreState((s) => s.height);
-  const [tX, tY, tScale] = useStoreState((s) => s.transform);
-  const nodes = useStoreState((s) => s.nodes);
+  const containerWidth = useStoreState((s) => s.present.width);
+  const containerHeight = useStoreState((s) => s.present.height);
+  const [tX, tY, tScale] = useStoreState((s) => s.present.transform);
+  const nodes = useStoreState((s) => s.present.nodes);
 
   const mapClasses = cc(['react-flow__minimap', className]);
   const elementWidth = (style?.width || defaultWidth)! as number;
   const elementHeight = (style?.height || defaultHeight)! as number;
   const nodeColorFunc = (nodeColor instanceof Function ? nodeColor : () => nodeColor) as StringFunc;
-  const nodeStrokeColorFunc = (nodeStrokeColor instanceof Function
-    ? nodeStrokeColor
-    : () => nodeStrokeColor) as StringFunc;
+  const nodeStrokeColorFunc = (
+    nodeStrokeColor instanceof Function ? nodeStrokeColor : () => nodeStrokeColor
+  ) as StringFunc;
   const nodeClassNameFunc = (nodeClassName instanceof Function ? nodeClassName : () => nodeClassName) as StringFunc;
   const hasNodes = nodes && nodes.length;
   const bb = getRectOfNodes(nodes);
@@ -64,7 +64,7 @@ const MiniMap = ({
   const y = boundingRect.y - (viewHeight - boundingRect.height) / 2 - offset;
   const width = viewWidth + offset * 2;
   const height = viewHeight + offset * 2;
-  const shapeRendering = (typeof window === "undefined" || !!window.chrome) ?  "crispEdges" : "geometricPrecision";
+  const shapeRendering = typeof window === 'undefined' || !!window.chrome ? 'crispEdges' : 'geometricPrecision';
 
   return (
     <svg
