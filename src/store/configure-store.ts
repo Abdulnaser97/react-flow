@@ -11,7 +11,6 @@ export default function configureStore(
 ): Store<StateWithHistory<ReactFlowState>, ReactFlowAction> {
   const store = createStore(
     undoable(reactFlowReducer, {
-      limit: 100,
       filter: includeAction([
         constants.SET_ELEMENTS,
         constants.UPDATE_NODE_DIMENSIONS,
