@@ -105,6 +105,8 @@ const NodeRenderer = (props: NodeRendererProps) => {
             isConnectable={isConnectable}
             resizeObserver={resizeObserver}
             dragHandle={node.dragHandle}
+            height={height}
+            width={width}
           />
         );
       })}

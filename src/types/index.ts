@@ -247,6 +247,8 @@ export interface WrapNodeProps<T = any> {
   isDragging?: boolean;
   resizeObserver: ResizeObserver | null;
   dragHandle?: string;
+  height?: number;
+  width?: number;
 }
 
 export type FitViewParams = {
